@@ -25,8 +25,8 @@ namespace lab8
 
         private void OpenHistory(object sender, RoutedEventArgs e)
         {
-            //var historyWindow = new HistoryWindow();
-            //historyWindow.Show();
+            var historyWindow = new HistoryWindow();
+            historyWindow.Show();
         }
     }
 }
