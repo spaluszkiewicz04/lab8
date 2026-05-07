@@ -19,8 +19,8 @@ namespace lab8
 
         private void OpenAddPlayer(object sender, RoutedEventArgs e)
         {
-            //var playerWindow = new PlayerWindow();
-            //playerWindow.ShowDialog(this);
+            var playerWindow = new PlayerWindow();
+            playerWindow.ShowDialog(this);
         }
 
         private void OpenHistory(object sender, RoutedEventArgs e)
