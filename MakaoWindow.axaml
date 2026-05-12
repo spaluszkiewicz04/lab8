@@ -1,0 +1,65 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="lab8.MakaoWindow"
+        Title="Makao" Width="800" Height="600">
+
+    <Grid>
+        <StackPanel Name="PanelCover" IsVisible="True" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="20">
+            <TextBlock Name="TxtCoverMessage" Text="Teraz gra: Gracz" FontSize="24" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Center"/>
+            <Button Name="BtnReady" Content="Jestem gotowy, pokaż karty" FontSize="18" Padding="15" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <Grid Name="PanelGame" IsVisible="False" RowDefinitions="Auto, *, 200" Margin="20">
+
+            <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="1" Padding="10" CornerRadius="5">
+                <TextBlock Name="TxtOpponentsInfo" Text="Przeciwnicy: ..." FontWeight="Bold" HorizontalAlignment="Center"/>
+            </Border>
+
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                <TextBlock Text="Karta na stosie:" FontSize="16" HorizontalAlignment="Center"/>
+                <TextBlock Name="TxtTopCard" Text="-" FontSize="50" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <TextBlock Name="TxtTableStatus" Text="Kara" FontSize="16" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Center"/>
+
+                <Button Name="BtnTakeCards" Content="Dobierz kartę" Width="250" HorizontalContentAlignment="Center" Margin="0,15,0,0"/>
+
+                <StackPanel Name="PanelSuitSelection" IsVisible="False" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <TextBlock Text="Zmień kolor na:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Button Name="BtnSuitSpades" Content="♠" Width="40"/>
+                    <Button Name="BtnSuitHearts" Content="♥" Width="40"/>
+                    <Button Name="BtnSuitDiamonds" Content="♦" Width="40"/>
+                    <Button Name="BtnSuitClubs" Content="♣" Width="40"/>
+                </StackPanel>
+
+                <StackPanel Name="PanelRankSelection" IsVisible="False" Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <TextBlock Text="Żądaj figury:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Button Name="BtnRank5" Content="5" Width="35"/>
+                    <Button Name="BtnRank6" Content="6" Width="35"/>
+                    <Button Name="BtnRank7" Content="7" Width="35"/>
+                    <Button Name="BtnRank8" Content="8" Width="35"/>
+                    <Button Name="BtnRank9" Content="9" Width="35"/>
+                    <Button Name="BtnRank10" Content="10" Width="35"/>
+                    <Button Name="BtnRankNone" Content="Bez żądania" Width="100"/>
+                </StackPanel>
+            </StackPanel>
+
+            <Grid Grid.Row="2" ColumnDefinitions="*, Auto">
+                <StackPanel Grid.Column="0">
+                    <TextBlock Name="TxtCurrentPlayerCards" Text="Twoje karty:" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <ListBox Name="LstCurrentHand" Height="150">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate><WrapPanel Orientation="Horizontal" /></ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:CompileBindings="False">
+                                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="15,10" Margin="5" Background="White">
+                                    <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="Bold" Foreground="Black"/>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <Button Name="BtnSayMakao" Grid.Column="1" Content="MAKAO" FontSize="20" FontWeight="Bold" Background="Green" Foreground="White" Width="95" Height="35" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

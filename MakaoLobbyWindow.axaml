@@ -1,0 +1,21 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="lab8.MakaoLobbyWindow"
+        Title="Makao - Lobby" Width="350" Height="450">
+
+    <StackPanel Margin="20" Spacing="15" HorizontalAlignment="Stretch">
+        <TextBlock Text="Wybierz graczy" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <TextBlock Text="(2 - 4 graczy)" FontStyle="Italic" HorizontalAlignment="Center" Foreground="Gray"/>
+
+        <ListBox Name="LstPlayers" Height="220" Margin="0,10">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:CompileBindings="False">
+                    <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding Player.Login}" FontSize="16" Margin="5"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <TextBlock Name="TxtError" Foreground="Red" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <Button Name="BtnStartGame" Content="Rozpocznij Grę" Width="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+    </StackPanel>
+</Window>

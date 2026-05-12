@@ -12,7 +12,12 @@ namespace lab8
             this.FindControl<Button>("BtnAddPlayer").Click += OpenAddPlayer;
             this.FindControl<Button>("BtnHistory").Click += OpenHistory;
 
-            this.FindControl<Button>("BtnGame1").Click += (s, e) => { /* Gra 1 */ };
+            this.FindControl<Button>("BtnGame1").Click += (s, e) =>
+            {
+                var makaoLobby = new MakaoLobbyWindow();
+                makaoLobby.ShowDialog(this);
+            };
+
             this.FindControl<Button>("BtnGame2").Click += (s, e) => { /* Gra 2 */ };
             this.FindControl<Button>("BtnGame3").Click += (s, e) => { /* Gra 3 */ };
         }
