@@ -1,0 +1,24 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:lab8"
+        x:Class="lab8.HistoryWindow"
+        Title="Historia Rozgrywek" Width="400" Height="300">
+    
+    <Grid RowDefinitions="Auto,*">
+        <TextBlock Text="Ostatnie gry:" FontSize="18" FontWeight="Bold" Margin="10"/>
+        
+        <ListBox Name="LstHistory" Grid.Row="1" Margin="10"
+            ItemsSource="{x:Static local:AppState.MatchHistory}">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="{Binding Date}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding GameName}" FontStyle="Italic"/>
+                        <TextBlock Text="{Binding WinnerLogin}" Foreground="Red"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>
