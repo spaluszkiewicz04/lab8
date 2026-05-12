@@ -19,7 +19,12 @@ namespace lab8
             };
 
             this.FindControl<Button>("BtnGame2").Click += (s, e) => { /* Gra 2 */ };
-            this.FindControl<Button>("BtnGame3").Click += (s, e) => { /* Gra 3 */ };
+            
+            this.FindControl<Button>("BtnGame3").Click += (s, e) =>
+            {
+                var lobbyWindow = new PanLobbyWindow();
+                lobbyWindow.ShowDialog(this);
+            };
         }
 
         private void OpenAddPlayer(object sender, RoutedEventArgs e)

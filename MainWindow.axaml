@@ -12,6 +12,6 @@
 
         <Button Name="BtnGame1" Content="Makao" Width="200" HorizontalContentAlignment="Center"/>
         <Button Name="BtnGame2" Content="Gra 2" Width="200" HorizontalContentAlignment="Center"/>
-        <Button Name="BtnGame3" Content="Gra 3" Width="200" HorizontalContentAlignment="Center"/>
+        <Button Name="BtnGame3" Content="Pan" Width="200" HorizontalContentAlignment="Center"/>
     </StackPanel>
 </Window>
