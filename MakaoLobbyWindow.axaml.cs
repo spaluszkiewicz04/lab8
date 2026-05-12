@@ -6,13 +6,6 @@ using System.Linq;
 
 namespace lab8
 {
-
-    public class PlayerSelectionItem
-    {
-        public Player Player { get; set; }
-        public bool IsSelected { get; set; }
-    }
-
     public partial class MakaoLobbyWindow : Window
     {
         private ObservableCollection<PlayerSelectionItem> _selectablePlayers = new();

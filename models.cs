@@ -8,6 +8,12 @@ namespace lab8
         public int Id { get; set; }
     }
 
+    public class PlayerSelectionItem
+    {
+        public Player Player { get; set; }
+        public bool IsSelected { get; set; }
+    }
+
     public class MatchRecord
     {
         public string GameName { get; set; }
