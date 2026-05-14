@@ -9,6 +9,8 @@ namespace lab8
         {
             InitializeComponent();
 
+            AppState.LoadPlayers();
+
             this.FindControl<Button>("BtnAddPlayer").Click += OpenAddPlayer;
             this.FindControl<Button>("BtnHistory").Click += OpenHistory;
 

@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Text.Json;
 
 namespace lab8
 {
@@ -23,7 +26,47 @@ namespace lab8
 
     public static class AppState
     {
-        public static List<Player> Players { get; set; } = new List<Player>();
-        public static List<MatchRecord> MatchHistory { get; set; } = new List<MatchRecord>();
+        public static ObservableCollection<Player> Players { get; set; } = new ObservableCollection<Player>();
+        public static ObservableCollection<MatchRecord> MatchHistory { get; set; } = new ObservableCollection<MatchRecord>();
+
+        private const string PlayersFilePath = "players.json";
+
+        public static void SavePlayers()
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(Players);
+                File.WriteAllText(PlayersFilePath, json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Błąd");
+            }
+        }
+
+        public static void LoadPlayers()
+        {
+            try
+            {
+                if (File.Exists(PlayersFilePath))
+                {
+                    var json = File.ReadAllText(PlayersFilePath);
+                    var loadedPlayers = JsonSerializer.Deserialize<ObservableCollection<Player>>(json);
+
+                    if (loadedPlayers != null)
+                    {
+                        Players.Clear();
+                        foreach (var p in loadedPlayers)
+                        {
+                            Players.Add(p);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Błąd");
+            }
+        }
     }
 }

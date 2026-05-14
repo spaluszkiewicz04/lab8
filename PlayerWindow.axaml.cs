@@ -25,6 +25,8 @@ namespace lab8
                 };
                 AppState.Players.Add(newPlayer);
 
+                AppState.SavePlayers();
+
                 this.FindControl<TextBlock>("TxtMessage").Text = $"Dodano gracza: {loginInput}!";
                 this.FindControl<TextBox>("TxtLogin").Text = "";
             }
