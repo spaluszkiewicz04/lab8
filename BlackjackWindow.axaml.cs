@@ -1,6 +1,5 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using lab8;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +21,15 @@ namespace lab8
         private Random _rnd = new Random();
         private bool _gameOver = false;
 
+        private bool _isDealerCardHidden = true;
+
         public BlackjackWindow()
         {
             InitializeComponent();
 
             this.FindControl<Button>("BtnHit").Click += Hit_Click;
             this.FindControl<Button>("BtnStand").Click += Stand_Click;
+            this.FindControl<Button>("BtnCheat").Click += Cheat_Click;
             this.FindControl<Button>("BtnNewGame").Click += NewGame_Click;
 
             var cmbPlayers = this.FindControl<ComboBox>("CmbPlayers");
@@ -49,6 +51,7 @@ namespace lab8
         private void StartNewGame()
         {
             _gameOver = false;
+            _isDealerCardHidden = true;
             _deck = GenerateDeck();
             _playerCards.Clear();
             _dealerCards.Clear();
@@ -56,6 +59,7 @@ namespace lab8
             this.FindControl<TextBlock>("TxtGameResult").Text = "";
             this.FindControl<Button>("BtnHit").IsEnabled = true;
             this.FindControl<Button>("BtnStand").IsEnabled = true;
+            this.FindControl<Button>("BtnCheat").IsEnabled = true;
 
             _playerCards.Add(DrawCard());
             _playerCards.Add(DrawCard());
@@ -114,8 +118,16 @@ namespace lab8
             this.FindControl<TextBlock>("TxtPlayerCards").Text = string.Join("  ", _playerCards.Select(c => c.Name));
             this.FindControl<TextBlock>("TxtPlayerScore").Text = $"Punkty: {CalculateScore(_playerCards)}";
 
-            this.FindControl<TextBlock>("TxtDealerCards").Text = string.Join("  ", _dealerCards.Select(c => c.Name));
-            this.FindControl<TextBlock>("TxtDealerScore").Text = $"Punkty: {CalculateScore(_dealerCards)}";
+            if (_isDealerCardHidden && !_gameOver)
+            {
+                this.FindControl<TextBlock>("TxtDealerCards").Text = $"{_dealerCards[0].Name}  ❓";
+                this.FindControl<TextBlock>("TxtDealerScore").Text = $"Punkty: {_dealerCards[0].Value}";
+            }
+            else
+            {
+                this.FindControl<TextBlock>("TxtDealerCards").Text = string.Join("  ", _dealerCards.Select(c => c.Name));
+                this.FindControl<TextBlock>("TxtDealerScore").Text = $"Punkty: {CalculateScore(_dealerCards)}";
+            }
         }
 
         private void Hit_Click(object sender, RoutedEventArgs e)
@@ -134,6 +146,8 @@ namespace lab8
         private void Stand_Click(object sender, RoutedEventArgs e)
         {
             if (_gameOver) return;
+
+            _isDealerCardHidden = false;
 
             while (CalculateScore(_dealerCards) < 17)
             {
@@ -155,20 +169,41 @@ namespace lab8
                 EndGame("Remis");
         }
 
+        private void Cheat_Click(object sender, RoutedEventArgs e)
+        {
+            if (_gameOver || !_isDealerCardHidden) return;
+
+            this.FindControl<Button>("BtnCheat").IsEnabled = false;
+
+            if (_rnd.NextDouble() < 0.5)
+            {
+                EndGame("Oszust");
+            }
+            else
+            {
+                _isDealerCardHidden = false;
+                UpdateUI();
+            }
+        }
+
         private void CheckInitialBlackjack()
         {
             if (CalculateScore(_playerCards) == 21)
             {
-                EndGame("Wygrywasz");
+                EndGame("Blackjack");
             }
         }
 
         private void EndGame(string resultMessage)
         {
             _gameOver = true;
+            _isDealerCardHidden = false;
+            UpdateUI();
+
             this.FindControl<TextBlock>("TxtGameResult").Text = resultMessage;
             this.FindControl<Button>("BtnHit").IsEnabled = false;
             this.FindControl<Button>("BtnStand").IsEnabled = false;
+            this.FindControl<Button>("BtnCheat").IsEnabled = false;
 
             string winner = "Krupier";
             if (resultMessage.Contains("Wygrywasz"))
